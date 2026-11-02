@@ -12,42 +12,43 @@ It is a server-rendered Python app built with FastAPI, Jinja2 templates and Post
 - **Review**: one due word at a time. The French word is shown first, and the meaning is revealed with a click. Rate it:
 
   | Button | Next review |
-  |---|---|
-  | Again | in 1 day |
-  | Good | in 3 days |
-  | Easy | in 7 days |
+  | ------ | ----------- |
+  | Again  | in 1 day    |
+  | Good   | in 3 days   |
+  | Easy   | in 7 days   |
 
   New words are due immediately. A word can only be rated when it is due.
+
 - **Private data**: every user only sees and changes their own notes and words.
 - **Friendly error pages** for 400, 403, 404, 405 and 500.
 - **Responsive layout** for desktop, tablet and mobile.
 
 ## Screenshots
 
-| My Notes | Note detail |
-|---|---|
+| My Notes                                | Note detail                                      |
+| --------------------------------------- | ------------------------------------------------ |
 | ![My Notes](docs/screenshots/notes.jpg) | ![Note detail](docs/screenshots/note-detail.jpg) |
 
-| My Vocabulary | Review |
-|---|---|
+| My Vocabulary                                     | Review                                 |
+| ------------------------------------------------- | -------------------------------------- |
 | ![My Vocabulary](docs/screenshots/vocabulary.jpg) | ![Review](docs/screenshots/review.jpg) |
 
-| Log in | Mobile |
-|---|---|
+| Log in                                | Mobile                                       |
+| ------------------------------------- | -------------------------------------------- |
 | ![Log in](docs/screenshots/login.jpg) | ![Mobile](docs/screenshots/mobile-notes.jpg) |
 
 ## Technology stack
 
-| Layer | Choice |
-|---|---|
-| Language | Python 3.14.2 |
-| Web framework | FastAPI |
-| Templates | Jinja2 + HTML + one hand-written CSS file |
-| Database | PostgreSQL |
-| ORM | SQLModel |
+| Layer          | Choice                                                                           |
+| -------------- | -------------------------------------------------------------------------------- |
+| Language       | Python 3.14.2                                                                    |
+| Web framework  | FastAPI                                                                          |
+| Templates      | Jinja2 + HTML + one hand-written CSS file                                        |
+| Database       | PostgreSQL                                                                       |
+| ORM            | SQLModel                                                                         |
 | Authentication | Signed cookie sessions (Starlette `SessionMiddleware`) + Argon2 password hashing |
-| Tests | pytest + FastAPI `TestClient` |
-| Hosting | Render (app) and Neon (PostgreSQL) |
+| Tests          | pytest + FastAPI `TestClient`                                                    |
+| Hosting        | Render (app) and Neon (PostgreSQL)                                               |
 
 All dependencies are pinned to exact versions in `requirements.txt`.
 
@@ -76,24 +77,24 @@ docs/                # design references and screenshots
 
 ### Routes
 
-| Method | Path | Purpose |
-|---|---|---|
-| GET | `/` | Redirect to `/notes` (logged in) or `/login` |
-| GET / POST | `/register` | Register page / submit |
-| GET / POST | `/login` | Login page / submit |
-| POST | `/logout` | Log out |
-| GET | `/notes` | List notes |
-| GET / POST | `/notes/new` | New note form / create |
-| GET | `/notes/{id}` | View note |
-| GET / POST | `/notes/{id}/edit` | Edit form / update |
-| POST | `/notes/{id}/delete` | Delete note |
-| GET | `/vocabulary` | List words |
-| GET / POST | `/vocabulary/new` | New word form / create |
-| GET | `/vocabulary/{id}` | View word |
-| GET / POST | `/vocabulary/{id}/edit` | Edit form / update |
-| POST | `/vocabulary/{id}/delete` | Delete word |
-| GET | `/review` | Show the next due word |
-| POST | `/review/{id}` | Submit a rating (`again`, `good` or `easy`) |
+| Method     | Path                      | Purpose                                      |
+| ---------- | ------------------------- | -------------------------------------------- |
+| GET        | `/`                       | Redirect to `/notes` (logged in) or `/login` |
+| GET / POST | `/register`               | Register page / submit                       |
+| GET / POST | `/login`                  | Login page / submit                          |
+| POST       | `/logout`                 | Log out                                      |
+| GET        | `/notes`                  | List notes                                   |
+| GET / POST | `/notes/new`              | New note form / create                       |
+| GET        | `/notes/{id}`             | View note                                    |
+| GET / POST | `/notes/{id}/edit`        | Edit form / update                           |
+| POST       | `/notes/{id}/delete`      | Delete note                                  |
+| GET        | `/vocabulary`             | List words                                   |
+| GET / POST | `/vocabulary/new`         | New word form / create                       |
+| GET        | `/vocabulary/{id}`        | View word                                    |
+| GET / POST | `/vocabulary/{id}/edit`   | Edit form / update                           |
+| POST       | `/vocabulary/{id}/delete` | Delete word                                  |
+| GET        | `/review`                 | Show the next due word                       |
+| POST       | `/review/{id}`            | Submit a rating (`again`, `good` or `easy`)  |
 
 ## Database models
 
@@ -155,12 +156,12 @@ Requirements: Python 3.14.2 and PostgreSQL.
 
 ## Environment variables
 
-| Name | Purpose |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string. It must start with `postgresql+psycopg://`. |
-| `TEST_DATABASE_URL` | A separate database used only by pytest. Never the same as `DATABASE_URL`. |
-| `SECRET_KEY` | Long random string used to sign session cookies. |
-| `ENVIRONMENT` | `development` or `production`. In `production` the session cookie is HTTPS-only. |
+| Name                | Purpose                                                                          |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `DATABASE_URL`      | PostgreSQL connection string. It must start with `postgresql+psycopg://`.        |
+| `TEST_DATABASE_URL` | A separate database used only by pytest. Never the same as `DATABASE_URL`.       |
+| `SECRET_KEY`        | Long random string used to sign session cookies.                                 |
+| `ENVIRONMENT`       | `development` or `production`. In `production` the session cookie is HTTPS-only. |
 
 Example `.env` for local development (never commit this file, it is in `.gitignore`):
 
@@ -203,30 +204,20 @@ Use this production database only for the deployed app. Never use your local dev
 2. In Render, create a **Web Service** from that repository.
 3. Use these settings:
 
-   | Setting | Value |
-   |---|---|
-   | Runtime | Python |
-   | Build command | `pip install -r requirements.txt` |
+   | Setting       | Value                                              |
+   | ------------- | -------------------------------------------------- |
+   | Runtime       | Python                                             |
+   | Build command | `pip install -r requirements.txt`                  |
    | Start command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
 
 4. Add these environment variables in the Render dashboard:
 
-   | Name | Value |
-   |---|---|
-   | `DATABASE_URL` | the Neon connection string from step 1 |
-   | `SECRET_KEY` | a new long random string (do not reuse your local one) |
-   | `ENVIRONMENT` | `production` |
+   | Name           | Value                                                  |
+   | -------------- | ------------------------------------------------------ |
+   | `DATABASE_URL` | the Neon connection string from step 1                 |
+   | `SECRET_KEY`   | a new long random string (do not reuse your local one) |
+   | `ENVIRONMENT`  | `production`                                           |
 
    Do not set `TEST_DATABASE_URL` on Render. Do not set `PYTHON_VERSION` either: Render reads `3.14.2` from the `.python-version` file.
 
 5. Deploy. On the first start the app creates the `user`, `note` and `vocabulary` tables in the empty Neon database.
-
-## Known limitations
-
-- No password reset, email verification or account deletion.
-- The review schedule uses fixed intervals (1, 3 and 7 days). There is no adaptive algorithm such as SM-2.
-- Dates are shown in UTC, not in the user's local timezone.
-- No search, tags or folders.
-- Sessions are signed cookies stored in the browser, not on the server. Logging out clears the cookie in that browser, but the server cannot cancel a copied cookie before it expires (7 days).
-- No rate limiting on login attempts.
-- No database migration tool. Changing an existing table needs a manual, planned change.

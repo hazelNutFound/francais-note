@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}My Notes · FrançaisNote{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>My Notes</h1>
+  <a class="button" href="/notes/new">+ New note</a>
+</div>
+
+{% if notes %}
+<div class="card-grid">
+  {% for note in notes %}
+  <a class="note-card" href="/notes/{{ note.id }}">
+    <h3>{{ note.title }}</h3>
+    <p>{{ note.content | truncate(150) }}</p>
+    <span class="date">{{ note.updated_at | utc_date }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty">No notes yet. Write your first one!</p>
+{% endif %}
+{% endblock %}

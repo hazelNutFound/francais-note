@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ heading }} · FrançaisNote{% endblock %}
+
+{% block container_class %}container-narrow{% endblock %}
+
+{% block content %}
+<a class="back-link" href="/notes">← My Notes</a>
+<h1>{{ heading }}</h1>
+
+<form method="post" action="{{ action }}" class="panel">
+  {% if error %}
+  <p class="error">{{ error }}</p>
+  {% endif %}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title" value="{{ title }}" maxlength="200" required>
+  <label for="content">Content</label>
+  <textarea id="content" name="content" rows="12" maxlength="10000" required>{{ content }}</textarea>
+  <div class="form-actions">
+    <button type="submit">Save</button>
+    <a class="button button-secondary" href="/notes">Cancel</a>
+  </div>
+</form>
+{% endblock %}

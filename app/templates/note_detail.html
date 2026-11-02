@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.title }} · FrançaisNote{% endblock %}
+
+{% block container_class %}container-narrow{% endblock %}
+
+{% block content %}
+<a class="back-link" href="/notes">← My Notes</a>
+
+<article class="panel">
+  <h1>{{ note.title }}</h1>
+  <p class="date">Created {{ note.created_at | utc_date }} · Updated {{ note.updated_at | utc_date }} (UTC)</p>
+  <div class="note-content">{{ note.content }}</div>
+</article>
+
+<div class="actions">
+  <a class="button" href="/notes/{{ note.id }}/edit">Edit</a>
+  <form method="post" action="/notes/{{ note.id }}/delete">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="danger">Delete</button>
+  </form>
+</div>
+{% endblock %}

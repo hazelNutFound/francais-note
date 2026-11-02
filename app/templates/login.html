@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Log in · FrançaisNote{% endblock %}
+
+{% block body %}
+<main class="auth-page">
+  <div class="auth-card">
+    <h1>FrançaisNote</h1>
+    <p class="subtitle">Welcome back. Log in to your French notebook.</p>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" action="/login">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" value="{{ email }}" maxlength="255" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Log in</button>
+    </form>
+
+    <p class="switch-link">No account yet? <a href="/register">Register</a></p>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Review · FrançaisNote{% endblock %}
+
+{% block container_class %}container-review{% endblock %}
+
+{% block content %}
+<h1>Review</h1>
+
+<div class="review-stage">
+{% if word %}
+<div class="review-card">
+  <p class="review-word">{{ word.french_word }}</p>
+
+  <details class="review-meaning">
+    <summary>Show meaning</summary>
+    <p>{{ word.english_meaning }}</p>
+  </details>
+
+  <form method="post" action="/review/{{ word.id }}" class="review-buttons">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" name="rating" value="again" class="rating-again">Again <span>1 day</span></button>
+    <button type="submit" name="rating" value="good" class="rating-good">Good <span>3 days</span></button>
+    <button type="submit" name="rating" value="easy" class="rating-easy">Easy <span>7 days</span></button>
+  </form>
+</div>
+{% else %}
+<div class="review-card">
+  <p class="review-done">Nothing to review right now.</p>
+  <a class="button button-secondary" href="/vocabulary">Go to My Vocabulary</a>
+</div>
+{% endif %}
+</div>
+{% endblock %}

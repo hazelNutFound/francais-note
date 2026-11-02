@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} · FrançaisNote{% endblock %}
+
+{% block body %}
+<main class="auth-page">
+  <div class="auth-card error-card">
+    <p class="error-code">{{ status_code }}</p>
+    <h1>{{ title }}</h1>
+    <p class="error-message">{{ message }}</p>
+    <a class="button" href="/">Back to FrançaisNote</a>
+  </div>
+</main>
+{% endblock %}

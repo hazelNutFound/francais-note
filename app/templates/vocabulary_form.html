@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ heading }} · FrançaisNote{% endblock %}
+
+{% block container_class %}container-narrow{% endblock %}
+
+{% block content %}
+<a class="back-link" href="/vocabulary">← My Vocabulary</a>
+<h1>{{ heading }}</h1>
+
+<form method="post" action="{{ action }}" class="panel">
+  {% if error %}
+  <p class="error">{{ error }}</p>
+  {% endif %}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="french_word">French word</label>
+  <input type="text" id="french_word" name="french_word" value="{{ french_word }}" maxlength="100" required>
+  <label for="english_meaning">English meaning</label>
+  <input type="text" id="english_meaning" name="english_meaning" value="{{ english_meaning }}" maxlength="300" required>
+  <div class="form-actions">
+    <button type="submit">Save</button>
+    <a class="button button-secondary" href="/vocabulary">Cancel</a>
+  </div>
+</form>
+{% endblock %}

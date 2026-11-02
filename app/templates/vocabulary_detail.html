@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ word.french_word }} · FrançaisNote{% endblock %}
+
+{% block container_class %}container-narrow{% endblock %}
+
+{% block content %}
+<a class="back-link" href="/vocabulary">← My Vocabulary</a>
+
+<article class="panel">
+  <h1>{{ word.french_word }}</h1>
+  <p class="word-detail-meaning">{{ word.english_meaning }}</p>
+  <p class="date">Added {{ word.created_at | utc_date }} · Next review {{ word.next_review_date | utc_date }} (UTC)</p>
+</article>
+
+<div class="actions">
+  <a class="button" href="/vocabulary/{{ word.id }}/edit">Edit</a>
+  <form method="post" action="/vocabulary/{{ word.id }}/delete">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="danger">Delete</button>
+  </form>
+</div>
+{% endblock %}

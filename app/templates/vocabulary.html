@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}My Vocabulary · FrançaisNote{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>My Vocabulary</h1>
+  <a class="button" href="/vocabulary/new">+ New word</a>
+</div>
+
+{% if words %}
+<ul class="word-list">
+  {% for word in words %}
+  <li>
+    <a href="/vocabulary/{{ word.id }}">
+      <span class="french-word">{{ word.french_word }}</span>
+      <span class="english-meaning">{{ word.english_meaning }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">No words yet. Add your first French word!</p>
+{% endif %}
+{% endblock %}
